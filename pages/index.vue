@@ -266,13 +266,20 @@ import HeroSlide from '~/components/HeroSlide';
 export default {
   async asyncData ({ params }) {
     try {
-      let { data } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=home-old&_embed`);
-      
-      data = data[0].acf.homepage_sections;
+      let { data: zipcodeList } = await axios.get(`http://cdn.alternativemedia.com.au/geodata.json`);
 
-      return { sections: data }
+      zipcodeList = zipcodeList.map(item => {
+        return item.join(' ');
+      })
+
+      let { data: sections } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=home-old&_embed`);
+
+      
+      sections = sections[0].acf.homepage_sections;
+
+      return { sections , zipcodeList}
     } catch (e) {
-      return { sections: []}
+      return { sections: [], zipcodeList: [] }
     }
   },
   components: {
@@ -289,14 +296,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      zipcodeList: 'getZipcodeList'
-    }),
     fas () {
-        return fas
+      return fas
     },
     fab () {
-        return fab
+      return fab
     },
     headerTitle() {
       return this.removeTags(this.sections[0].title);
@@ -306,12 +310,9 @@ export default {
     },
   },
   async created() {
-    await this.viewZipcodeList();
+    this.$store.commit('SET_ZIPCODE_LIST', this.zipcodeList);
   },
   methods: {
-    ...mapActions({
-      viewZipcodeList: 'getZipcodeList',
-    }),
    carouselImg(slide) {
      return slide.image.url;
    },
