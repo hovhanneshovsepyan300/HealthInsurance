@@ -1,7 +1,8 @@
 <template>
     <b-col md="6" lg="3" class="mb-lg-0 mb-4">
         <a href="" class="services-card d-block h-100 text-center">
-            <img :src="imgUrl" alt="services icon" width="123" height="79">
+            <img v-if="imgUrl" :src="imgUrl" alt="services icon" width="123" height="79">
+            <img v-else src="~/static/s-icon.jpg" alt="services icon" width="123" height="79">
             <h4>{{filteredTitle}}</h4>
             <p class="m-0 text-sm text-muted">{{filteredContent}}</p>
         </a>
@@ -13,7 +14,7 @@ export default {
     props: ['img', 'content', 'title'],
     computed:{
         imgUrl() {
-            return this.img || '../assets/img/s-icon-1.jpg';
+            return this.img || null;
         },
         filteredTitle() {
             return this.$getInnerHtml(this.title)

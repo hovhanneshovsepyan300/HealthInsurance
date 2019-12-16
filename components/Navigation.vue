@@ -32,7 +32,7 @@
                           <p class="m-0 text-white">AHM has been around for over 40 years, having started out as a small club in 1971</p>
                         </a>
                       </b-col>
-                      <b-col lg="2" md="3">
+                      <b-col lg="3" md="3">
                         <a href="" class="btn btn-success btn-default btn-block btn-r">Compare Policies</a>
                         <a href="" class="req-call-link"><fa :icon="fas.faPhoneAlt"/>  Request a call</a>
                       </b-col>
@@ -56,7 +56,7 @@
                           <p class="m-0 text-white">The Hospital Benefit Fund, or HBF, was established in 1941 as a not-for-profit org...</p>
                         </a>
                       </b-col>
-                      <b-col lg="2" md="3" class="text-center">
+                      <b-col lg="3" md="3" class="text-center">
                         <a href="" class="btn btn-default btn-outline-light mt-4">View All</a>
                       </b-col>
                     </b-row>
@@ -80,7 +80,7 @@
                         <a href="" class="link-w-icon text-white text-sm"><fa :icon="fas.faUsers"/> By Life Stage</a>
                         <a href="" class="link-w-icon text-white text-sm"><fa :icon="fas.faBook"/> General Guides</a>
                       </b-col>
-                      <b-col md="2" class="text-center">
+                      <b-col md="3" class="text-center">
                         <a href="" class="btn btn-success btn-default btn-block btn-r">Compare Policies</a>
                         <a href="" class="req-call-link"><fa :icon="fas.faPhoneAlt"/>  Request a call</a>
                         <a href="" class="btn btn-default btn-outline-light mt-4">See All</a>
@@ -94,16 +94,16 @@
                   <b-container>
                     <b-row class="justify-content-center mb-3">
                       <b-col lg="3">
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Waiting Period Calculator</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Medicare Levy Calculator</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Waiting Period Calculator</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Medicare Levy Calculator</a>
                       </b-col>
                       <b-col lg="3">
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Rebate Calculator</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Waiting List Calculator</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Rebate Calculator</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Waiting List Calculator</a>
                       </b-col>
                       <b-col lg="3">
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Policy Cost Calculator</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Premium Increase Calculator</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Policy Cost Calculator</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Premium Increase Calculator</a>
                       </b-col>
                       <b-col lg="3" class="text-center">
                         <a href="" class="btn btn-success btn-default btn-block btn-r">Compare Policies</a>
@@ -118,19 +118,19 @@
                   <b-container>
                     <b-row class="justify-content-center mb-3">
                       <b-col lg="3">
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> What We Do</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> How Our Service Works</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> How We Make Money</a>
+                        <nuxt-link to="/about-us" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> What We Do</nuxt-link>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> How Our Service Works</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> How We Make Money</a>
                       </b-col>
                       <b-col lg="3">
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Meet The Team</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Concierge</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Customer Reviews</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Meet The Team</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Concierge</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Customer Reviews</a>
                       </b-col>
                       <b-col lg="3">
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Industry Newsroom</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Privacy Policy</a>
-                        <a href="" class="link-w-icon text-white"><fa class="text-success text-sm" :icon="fas.faPlay"/> Contact Us</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Industry Newsroom</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Privacy Policy</a>
+                        <a href="" class="link-w-icon text-white"><fa class="text-success" :icon="fas.faCaretRight"/> Contact Us</a>
                       </b-col>
                       <b-col lg="3" class="text-center">
                         <a href="" class="btn btn-success btn-default btn-block btn-r">Compare Policies</a>
@@ -162,7 +162,6 @@
         </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-  <nuxt/>
   </div>
 </template>
 

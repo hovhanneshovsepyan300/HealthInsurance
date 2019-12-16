@@ -21,7 +21,8 @@
     "nuxt": "^2.0.0",
     "nuxt-fontawesome": "^0.4.0",
     "vue-autosuggest": "^2.0.4",
-    "vue-bootstrap-typeahead": "^0.2.6"
+    "vue-bootstrap-typeahead": "^0.2.6",
+    "vue-plain-pagination": "^0.3.0"
   },
   "devDependencies": {
     "node-sass": "^4.13.0",

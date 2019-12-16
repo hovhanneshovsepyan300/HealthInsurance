@@ -6,7 +6,7 @@
         <b-container>
             <div class="article-content bg-white">
                 <b-row>
-                    <b-col lg="8" class="blog-box article-content-wrapper">
+                    <b-col lg="7" xl="8" class="blog-box article-content-wrapper">
                         <div class="article-title">
                             <h2 class="inner-main-title title-color">Search Results for: {{searchFor}}</h2>
                             <div class="divide"></div>
@@ -21,22 +21,13 @@
                             <img class="img img-fluid mb-5" src="~/assets/img/adult-cutting-daylight-facial-expression.jpg" alt="blog post image">
                             <p class="main-blog-excerpt mb-4">Rude call centre staff. Irritatingly chipper elevator music. You’ve been put on hold three times in the past half hour,......</p>
                             <div class="text-right">
-                                <a href="" class="btn btn-default btn-r btn-success btn-w-shadow">Read More <fa :icon="fas.faArrowRight"/></a>
+                                <a href="" class="btn btn-default btn-lg btn-r btn-success btn-w-shadow text-capitalize">Read More <fa :icon="fas.faArrowRight"/></a>
                             </div>
                         </article>
 
                           <div class="overflow-auto">
-                            <b-pagination
-                                v-model="currentPage"
-                                :total-rows="rows"
-                                :per-page="perPage"
-                                aria-controls="my-table"
-                                :hide-goto-end-buttons="true">
-
-                                <template v-slot:prev-text><span class="text-danger">Prev</span></template>
-                                <template v-slot:next-text><span class="text-warning">Next</span></template>
-                                <template v-slot:ellipsis-text>...</template>
-                            </b-pagination>
+                            <pagination
+                            ></pagination>
                         </div>
                     </b-col>
 
@@ -53,24 +44,14 @@
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 import Search from '~/components/Search'
+import Pagination from '~/components/Pagination'
 
 export default {
-    async asyncData ({ params }) {
-        try {
-            let { data } = await axios.get(`http://cdn.alternativemedia.com.au/geodata.json`);
-
-            data = data.map(item => {
-                return item.join(' ');
-            })
-
-            return { zipcodeList: data }
-        } catch (e) {
-            return { zipcodeList: [] }
-        }
-    },
     components: {
         Search,
+        Pagination, 
     },
     data() {
         return {
@@ -83,6 +64,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters({
+            zipcodeList: 'getZipcodeList',
+        }),
         fas () {
             return fas
         },

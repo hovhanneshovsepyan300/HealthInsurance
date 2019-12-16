@@ -6,11 +6,11 @@ Vue.prototype.$removeHtmltags = str => {
     else
         str = str.toString();
         
-    let div = document.createElement('div');
-    div.innerHTML = str;
-    str = div.innerHTML;
+    let elem = document.createElement('textarea');
+    elem.innerHTML = str;
+    let decoded = elem.value;
 
-    return str.replace( /(<([^>]+)>)/ig, '');
+    return decoded.replace( /(<([^>]+)>)/ig, '');
 }
 
 Vue.prototype.$getInnerHtml = str => {

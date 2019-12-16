@@ -1,10 +1,12 @@
 <template>
     <b-carousel-slide>
-        <b-row class="justify-content-around flex-md-row flex-column-reverse">
-            <b-col md="12">
-            <img class="img w-100 d-block" :src="imgUrl" alt="" height="290">
-            </b-col>
-        </b-row>
+        <b-container>
+            <b-row class="justify-content-around flex-md-row flex-column-reverse">
+                <b-col md="12 text-center">
+                    <a href=""><img class="img" :src="imgUrl" alt="carousel content"></a>
+                </b-col>
+            </b-row>
+        </b-container>
     </b-carousel-slide>
 </template>
 

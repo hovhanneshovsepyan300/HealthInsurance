@@ -22,7 +22,7 @@
                     </b-col>
                     <b-col md="3" lg="2" class="col-6">
                     <ul class="list-unstyled footer__list">
-                        <li><a href="#">About Us</a></li>
+                        <li><nuxt-link to="/about-us">About Us</nuxt-link></li>
                         <li><a href="#">Health Funds</a></li>
                         <li><a href="#">Guides</a></li>
                         <li><a href="#">Tools & Calculators</a></li>

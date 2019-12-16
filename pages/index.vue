@@ -25,7 +25,11 @@
                   <b-tooltip target="tooltip-help" triggers="hover">
                     enter address in this format (e.g: Campbell, ACT, 2612)
                   </b-tooltip>
-                  <b-form-input type="text" placeholder="Enter your postcode" class="form-control"></b-form-input>
+                  <vue-bootstrap-typeahead
+                    v-model="query"
+                    :data="zipcodeList"
+                    placeholder="Enter Suburb or Postcode"
+                    class="typeahead"/>
                 </b-col>
                 <b-col md="4" class="p-0">
                   <b-button type="submit" variant="success">Compare Quotes <fa :icon="fas.faLongArrowAltRight"/></b-button>
@@ -34,12 +38,12 @@
             </b-col>
           </b-row>
         </b-container>
-    </header><!-- Header End -->
+    </header>
 
     <section class="home-carousel-wrap bg-light">
-      <b-container>
+      <b-container fluid>
         <b-row>
-          <b-col md="12">
+          <b-col md="12" class="p-0">
             <b-carousel
               id="home-carousel"
               class="home-carousel"
@@ -48,20 +52,6 @@
               indicators
               fade
             >
-              <!-- <b-carousel-slide  v-for="(slide, index) in this.sections[0].hero_slides" :key="index + 's_3'">
-                <b-row class="justify-content-around flex-md-row flex-column-reverse">
-                  <b-col md="12">
-                    <img class="img w-100 d-block" :src="carouselImg(slide)" alt="" height="290">
-                  </b-col>
-                  <b-col md="7">
-                    <div class="home-carousel__content">
-                      <h2>Could you do better?</h2>
-                      <p class="text-muted">If you haven't compared health insurance in the past year, you could be paying too much.</p>
-                      <a href="" class="btn btn-default btn-lg btn-success">compare and switch <fa :icon="fas.faLongArrowAltRight"/></a>
-                    </div>
-                  </b-col>
-                </b-row>
-              </b-carousel-slide> -->
               <hero-slide v-for="(slide, index) in this.sections[0].hero_slides" 
                         :key="index + 's_1'" 
                         :slide="slide"
@@ -243,7 +233,7 @@
     </section>
     <section class="section bg-light">
       <b-container>
-        <div class="section-header text-center w-50 w-md-100 m-auto">
+        <div class="section-header text-center">
           <h2 class="title-color">{{getSectionTitle(6)}}</h2>
           <p class="text-muted">{{getSubheading(6)}}</p>
         </div>
@@ -267,6 +257,7 @@
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 
 import Service from '~/components/Service';
 import Review from '~/components/Review';
@@ -277,15 +268,7 @@ export default {
     try {
       let { data } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=home-old&_embed`);
       
-      data = data[0].acf.homepage_sections
-      // .map((section, index) => {
-      //   console.log("section", section)
-      //   let field_name = `section_${index + 1}`;
-      //   return {
-      //     [field_name]: section,
-      //   }
-      // })
-      // console.log("data", data)
+      data = data[0].acf.homepage_sections;
 
       return { sections: data }
     } catch (e) {
@@ -301,10 +284,14 @@ export default {
     return {
       compareSelect: 'a',
       text: '',
-      slide: 1
+      slide: 1,
+      query: null,
     }
   },
   computed: {
+    ...mapGetters({
+      zipcodeList: 'getZipcodeList'
+    }),
     fas () {
         return fas
     },
@@ -318,12 +305,15 @@ export default {
       return this.sections[1].services;
     },
   },
-  created() {
-    console.log('data', this.sections[7].benefit_tags)
+  async created() {
+    await this.viewZipcodeList();
   },
   methods: {
+    ...mapActions({
+      viewZipcodeList: 'getZipcodeList',
+    }),
    carouselImg(slide) {
-     return slide.image.url; // .mobile_image.url
+     return slide.image.url;
    },
    getSectionTitle(index) {
      let title = this.sections[index].section_title || this.sections[index].title;

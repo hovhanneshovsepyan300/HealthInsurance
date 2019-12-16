@@ -6,8 +6,15 @@
         <b-container>
             <div class="article-content bg-white">
                 <b-row>
-                    <b-col lg="8" class="blog-box">
-                        <div class="mb-5">
+                    <b-col lg="7" xl="8" class="blog-box">
+                        <div class="article-title">
+                            <h2 class="inner-main-title title-color">About</h2>
+                            <div class="divide"></div>
+                        </div>
+                        <div  v-html="content">
+
+                        </div>
+                        <!-- <div class="mb-5">
                             <div class="article-title">
                                 <h2 class="title-color">About</h2>
                                 <div class="divide"></div>
@@ -38,7 +45,7 @@
                             <h4>PHIIA compliant</h4>
                             <p>We are proudly a signatory to the <a href="http://phiia.com.au/" target="_blank">Private Health Insurance Intermediaries Association (PHIIA)</a> Code of Conduct 2015. This means that we have recently had our processes and procedures reviewed and are fully compliant with the code.</p>
                             <p>This certification confirms our commitment to quality and transparency for our customers, staff and industry.</p>
-                        </div>
+                        </div> -->
                     </b-col>
                     
                     <search :zipcodeList="zipcodeList"/>
@@ -54,20 +61,17 @@
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 import Search from '~/components/Search'
 
 export default {
     async asyncData ({ params }) {
         try {
-            let { data } = await axios.get(`http://cdn.alternativemedia.com.au/geodata.json`);
+            let { data } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=about-us&_embed`);
 
-            data = data.map(item => {
-                return item.join(' ');
-            })
-
-            return { zipcodeList: data }
+            return { content: data[0].content.rendered }
         } catch (e) {
-            return { zipcodeList: [] }
+            return { content: [] }
         }
     },
     components: {
@@ -80,12 +84,15 @@ export default {
         }
   },
     computed: {
-    fas () {
-        return fas
-    },
-    fab () {
-        return fab
-    },
+        ...mapGetters({
+            zipcodeList: 'getZipcodeList',
+        }),
+        fas () {
+            return fas
+        },
+        fab () {
+            return fab
+        },
     },
 }
 </script>

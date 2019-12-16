@@ -80,6 +80,11 @@
         }
       }
     }
+    .category-wrapper{
+      .search-box {
+        margin-top: 20px;
+      }
+    }
     .article-content {
       padding: 30px;
     }
@@ -190,7 +195,7 @@
           .carousel-item {
             .carousel-caption {
               img {
-                // height: 200px;
+                //width: 80%;
               }
             }
           }
@@ -201,8 +206,13 @@
         }
       }
     }
+    .blog-post {
+        &__title {
+          font-size: 26px;
+        }
+    }
     .article-content {
-      padding: 15px;
+      padding: 30px 15px;
     }
     .rating-card {
         border-bottom-left-radius: 0;

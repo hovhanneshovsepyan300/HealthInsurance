@@ -1,5 +1,5 @@
 <template>
-    <b-col lg="4" class="category-wrapper">
+    <b-col lg="5" xl="4" class="category-wrapper">
         <b-form class="search-box">
             <h4 class="text-white text-uppercase mt-0">Search</h4>
             <b-input-group>
@@ -15,9 +15,9 @@
         <b-form class="compare-s-box">
             <h4 class="text-white mt-0">Compare health insurance quotes.</h4>
             <b-input-group>
-                <template v-slot:prepend>
-                    <b-input-group-text><fa :icon="fas.faUser"/></b-input-group-text>
-                </template>
+                <i class="fa-icon text-sm">
+                    <fa :icon="fas.faUser"/>
+                </i>
                 <b-form-select v-model="categorySelect">
                     <option value="default">Life Stage...</option>
                     <option value="a">Single</option>
@@ -30,16 +30,18 @@
                     <fa :icon="fas.faChevronDown"/>
                 </i>
             </b-input-group>
-            <b-input-group>
-                <template v-slot:prepend>
-                    <b-input-group-text><fa :icon="fas.faMapMarker"/></b-input-group-text>
-                </template>
-                <b-form-input v-model="zipcode" placeholder="Enter Suburb or Postcode" autocomplete="off"></b-form-input>
+            
                 <vue-bootstrap-typeahead
                     v-model="query"
                     :data="zipcodeList"
-                />      
-            </b-input-group>
+                    placeholder="Enter Suburb or Postcode"
+                    class="typeahead">
+                
+                    <template v-slot:prepend>
+                        <b-input-group-text><fa :icon="fas.faMapMarker"/></b-input-group-text>
+                    </template>
+                    
+                </vue-bootstrap-typeahead>     
             <b-input-group>
                 <b-button variant="success" class="btn-default btn-block btn-r text-capitalize">Start Search</b-button>
             </b-input-group>
@@ -99,6 +101,7 @@ export default {
             text: '',
             zipcode: null,
             query: '',
+            placeholder: 'Enter Suburb or Postcode'
         }
     },
     computed: {
@@ -114,7 +117,6 @@ export default {
     },
     methods: {
         toSearch() {
-            // this.searchFor = this.text;
             this.$emit("onSearch", this.text);
             this.$router.push({name: 'search', query: {s: this.text}})
         },
