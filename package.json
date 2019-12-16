@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "deploy": "gh-pages -d dist",
     "build:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt build",
-    "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate"
+    "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate",
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": "13.3.0"
