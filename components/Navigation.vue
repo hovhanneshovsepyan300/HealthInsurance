@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="light" variant="white">
-    <b-navbar-brand href="#">
+    <b-navbar-brand href="/">
       <img src="~/assets/img/logo.svg"  width="200" height="46" class="d-inline-block align-top" alt="Logo">
     </b-navbar-brand>
 
