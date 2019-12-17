@@ -1,8 +1,11 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="light" variant="white">
-    <b-navbar-brand href="/">
-      <img src="~/assets/img/logo.svg"  width="200" height="46" class="d-inline-block align-top" alt="Logo">
+    
+    <b-navbar-brand>
+      <nuxt-link :to="{ path: '/'}">
+        <img src="~/assets/img/logo.svg"  width="200" height="46" class="d-inline-block align-top" alt="Logo">
+      </nuxt-link>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -195,6 +198,9 @@ export default {
       this.$router.push({name: 'search', query: {s: this.text}});
       this.text = '';
     },
+    toHome() {
+      this.$router.push({name: '/'});
+    }
   }
 }
 </script>
