@@ -366,7 +366,7 @@ a {
   margin-bottom: 15px;
 
   .input-group {
-    margin: 0;
+    margin-bottom: 0!important;
     .input-group-text {
       position: absolute;
       z-index: 999;
@@ -381,7 +381,7 @@ a {
   }
 
   .vbt-autcomplete-list {
-    padding-top: 0;
+    padding-top: 0!important;
     max-height: 220px;
     width: 100%;
 
