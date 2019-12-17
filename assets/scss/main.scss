@@ -121,6 +121,7 @@ a {
 .navbar {
   padding: 0 15px;
   background-color: #fff;
+  box-shadow: 0 2px 5px 1px rgba(0,0,0,0.05);
 
   ul.navbar-nav {
     li.nav-item {
@@ -287,12 +288,12 @@ a {
 //Navigation End
 
 .header {
-  background: #13708c;
-  padding: 40px 0 100px;
+  padding: 50px 0;
 
   &__title {
-    font-size: 42px;
-    font-weight: bold;
+    font-size: 38px;
+    font-weight: 600;
+    margin: 0 0 25px;
     color: #fff;
   }
 
@@ -300,15 +301,15 @@ a {
     margin: 15px 0 0;
 
     .form-control {
-      height: 60px;
-      // border: 1px solid #ebebeb;
-      border: 0px solid #ebebeb;
+      height: 52px;
+      border: 1px solid #dbdbdb;
       background-image: none;
       box-shadow: 0 0 5px 0 hsla(0,0%,45.1%,.25);
       color: #6c757d;
       font-size: 18px;
       padding-left: 20px;
       padding-right: 20px;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     }
 
     select.form-control {
@@ -332,10 +333,9 @@ a {
 
     .btn {
       font-size: 18px;
-      font-weight: 600;
-      text-transform: uppercase;
+      font-weight: bold;
       width: 100%;
-      height: 100%;
+      height: 52px;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border-top-right-radius: 6px;
@@ -344,6 +344,7 @@ a {
 
     .tooltip-help {
       position: absolute;
+      z-index: 999;
       right: 8px;
       top: 2px;
       color: #b2b2b2;
@@ -353,12 +354,54 @@ a {
     .fa-icon {
       position: absolute;
       right: 15px;
-      top: 16px;
+      top: 12px;
       color: #28a745;
       font-size: 20px;
     }
   }
 }
+
+.typeahead {
+  position: relative;
+  margin-bottom: 15px;
+
+  .input-group {
+    margin: 0;
+    .input-group-text {
+      position: absolute;
+      z-index: 999;
+      left: 8px;
+      top: 0;
+      height: 100%;
+      padding: 0;
+    }
+    .form-control  {
+      padding: 0.375rem 0.75rem 0.375rem 1.75rem;
+    }
+  }
+
+  .vbt-autcomplete-list {
+    padding-top: 0;
+    max-height: 220px;
+    width: 100%;
+
+    .list-group-item {
+      font-size: 14px;
+      padding: 8px 10px;
+      color: #575e62;
+      border-radius: 0!important;
+      border-color: transparent;
+
+      &.active {
+        background-color:#f1f1f1;
+        color: #575e62;
+      }
+
+      strong {color: #13708c}
+    }
+  }
+}
+
 
 .carousel-item {
   transition: transform 1.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform .9s ease-in-out;
@@ -366,21 +409,20 @@ a {
 
 .home-carousel-wrap {
   position: relative;
-  padding-bottom: 60px;
 
   .home-carousel {
     background-color: #fff;
-    margin-top: -60px;
+    //margin-top: -60px;
     //border-radius: 6px;
     box-shadow: 0 4px 7px 0 hsla(0,0%,45.1%,.25);
 
     .carousel-inner {
+      background: #4094a9;
+      background: linear-gradient(to right, #35869a 0%, #4094a9 100%);
       .carousel-item {
         .carousel-caption {
           position: static;
           padding: 0;
-          background: #4094a9;
-          background: linear-gradient(to right, #35869a 0%, #4094a9 100%);
 
           img {
             width: 100%;
@@ -561,6 +603,26 @@ a {
     background-repeat: no-repeat;
     background-position: 50%;
     position: relative;
+  }
+
+  #post1 {
+    background-image: url('..//img/iphone-technology.jpg');
+  }
+
+  #post2 {
+    background-image: url('..//img/accurate-alarm.jpg');
+  }
+
+  #post3 {
+    background-image: url('..//img/photo-of-woman-wearing-round.jpg');
+  }
+
+  #post4 {
+    background-image: url('..//img/man-looking-at-postcards.jpg');
+  }
+
+  #post5 {
+    background-image: url('..//img/adult-cutting-daylight-facial-expression.jpg');
   }
 
   &:hover {
@@ -783,46 +845,7 @@ a {
         font-size: 16px;
       }
     }
-    .typeahead {
-      position: relative;
-      margin-bottom: 15px;
 
-      .input-group {
-        margin: 0;
-        .input-group-text {
-          position: absolute;
-          z-index: 999;
-          left: 8px;
-          top: 0;
-          height: 100%;
-          padding: 0;
-        }
-        .form-control  {
-          padding: 0.375rem 0.75rem 0.375rem 1.75rem;
-        }
-      }
-
-      .vbt-autcomplete-list {
-        padding-top: 0;
-        max-height: 220px;
-        width: 100%;
-
-        .list-group-item {
-          font-size: 14px;
-          padding: 8px 10px;
-          color: #575e62;
-          border-radius: 0!important;
-          border-color: transparent;
-
-          &.active {
-            background-color:#f1f1f1;
-            color: #575e62;
-          }
-
-          strong {color: #13708c}
-        }
-      }
-    }
     .compare-phone {
       a {
         font-size: 20px;

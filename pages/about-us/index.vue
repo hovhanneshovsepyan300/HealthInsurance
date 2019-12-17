@@ -67,11 +67,17 @@ import Search from '~/components/Search'
 export default {
     async asyncData ({ params }) {
         try {
-            let { data } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=about-us&_embed`);
+            let { data: zipcodeList } = await axios.get(`https://cdn.alternativemedia.com.au/geodata.json`);
 
-            return { content: data[0].content.rendered }
+            zipcodeList = zipcodeList.map(item => {
+                return item.join(' ');
+            })
+
+            let { data: content } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=about-us&_embed`);
+
+            return { content: content[0].content.rendered , zipcodeList}
         } catch (e) {
-            return { content: [] }
+            return { content: [], zipcodeList: [] }
         }
     },
     components: {
@@ -84,9 +90,6 @@ export default {
         }
   },
     computed: {
-        ...mapGetters({
-            zipcodeList: 'getZipcodeList',
-        }),
         fas () {
             return fas
         },

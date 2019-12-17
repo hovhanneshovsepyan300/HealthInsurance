@@ -1,8 +1,8 @@
 <template>
   <div class="homepage">
-    <header class="header">
-        <b-container class="text-center">
-          <h1 class="header__title">{{getSectionTitle(0)}}</h1>
+    <header class="header bg-light">
+        <b-container>
+          <h1 class="header__title title-color text-center">{{getSectionTitle(0)}}</h1>
           <b-row>
             <b-col md="12">
               <b-form class="row header__form">
@@ -29,7 +29,10 @@
                     v-model="query"
                     :data="zipcodeList"
                     placeholder="Enter Suburb or Postcode"
-                    class="typeahead"/>
+                    class="typeahead"
+                    @focus="isFocused = false"
+                    ref="typeahead">
+                  </vue-bootstrap-typeahead>
                 </b-col>
                 <b-col md="4" class="p-0">
                   <b-button type="submit" variant="success">Compare Quotes <fa :icon="fas.faLongArrowAltRight"/></b-button>
@@ -161,7 +164,7 @@
           </b-col>
           <b-col sm="12" md="6" lg="3" class="mb-md-0 mb-4">
             <a href="#" class="post-card d-block">
-              <div class="post-card__img" :style="{ backgroundImage: `url('/iphone-technology.jpg')` }" ></div>              
+              <div class="post-card__img" id="post1"></div>              
               <div class="post-card__cover"></div>
               <div class="post-card__content">
                 <span>Guide</span>
@@ -171,7 +174,7 @@
           </b-col>
           <b-col sm="12" md="6" lg="3">
             <a href="#" class="post-card d-block">
-              <div class="post-card__img" :style="{ backgroundImage: `url('/accurate-alarm.jpg')` }" ></div>              
+              <div class="post-card__img" id="post2"></div>              
               <div class="post-card__cover"></div>
               <div class="post-card__content">
                 <span>Guide</span>
@@ -191,7 +194,7 @@
         <b-row>
           <b-col md="4">
             <a href="" class="post-card post-card-lg d-block">
-              <div class="post-card__img" :style="{ backgroundImage: `url('/photo-of-woman-wearing-round.jpg')` }" ></div>
+              <div class="post-card__img" id="post3"></div>
               <div class="post-card__content">
                 <h5 class="text-white text-sm">June 2019</h5>
                 <div class="title-box">
@@ -203,7 +206,7 @@
           </b-col>
           <b-col md="4" class="d-md-block d-none">
             <a href="" class="post-card post-card-lg d-block">
-              <div class="post-card__img" :style="{ backgroundImage: `url('/man-looking-at-postcards.jpg')` }" ></div>
+              <div class="post-card__img" id="post4"></div>
               <div class="post-card__content">
                 <h5 class="text-white text-sm">June 2019</h5>
                 <div class="title-box">
@@ -215,7 +218,7 @@
           </b-col>
           <b-col md="4" class="d-md-block d-none">
             <a href="" class="post-card post-card-lg d-block">
-              <div class="post-card__img" :style="{ backgroundImage: `url('/adult-cutting-daylight-facial-expression.jpg')` }" ></div>
+              <div class="post-card__img" id="post5"></div>
               <div class="post-card__content">
                 <h5 class="text-white text-sm">June 2019</h5>
                 <div class="title-box">
@@ -266,7 +269,7 @@ import HeroSlide from '~/components/HeroSlide';
 export default {
   async asyncData ({ params }) {
     try {
-      let { data: zipcodeList } = await axios.get(`http://cdn.alternativemedia.com.au/geodata.json`);
+      let { data: zipcodeList } = await axios.get(`https://cdn.alternativemedia.com.au/geodata.json`);
 
       zipcodeList = zipcodeList.map(item => {
         return item.join(' ');
@@ -309,12 +312,9 @@ export default {
       return this.sections[1].services;
     },
   },
-  async created() {
-    this.$store.commit('SET_ZIPCODE_LIST', this.zipcodeList);
-  },
   methods: {
    carouselImg(slide) {
-     return slide.image.url;
+    return slide.image.url;
    },
    getSectionTitle(index) {
      let title = this.sections[index].section_title || this.sections[index].title;

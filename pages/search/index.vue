@@ -49,6 +49,19 @@ import Search from '~/components/Search'
 import Pagination from '~/components/Pagination'
 
 export default {
+    async asyncData ({ params }) {
+        try {
+        let { data: zipcodeList } = await axios.get(`https://cdn.alternativemedia.com.au/geodata.json`);
+
+        zipcodeList = zipcodeList.map(item => {
+            return item.join(' ');
+        });
+
+        return { zipcodeList}
+        } catch (e) {
+        return { sections: [], zipcodeList: [] }
+        }
+    },
     components: {
         Search,
         Pagination, 
@@ -64,9 +77,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({
-            zipcodeList: 'getZipcodeList',
-        }),
         fas () {
             return fas
         },
