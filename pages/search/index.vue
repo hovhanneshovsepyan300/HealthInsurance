@@ -12,7 +12,7 @@
                             <div class="divide"></div>
                         </div>
 
-                        <article class="blog-post">
+                        <!-- <article class="blog-post">
                             <h2 class="blog-post__title">This ten-minute phone call could save you hundreds</h2>
                             <div class="blog-post__date">
                                 <i class="icon-fa text-success text-sm"><fa :icon="fas.faCalendarAlt"/></i>
@@ -23,9 +23,16 @@
                             <div class="text-right">
                                 <a href="" class="btn btn-default btn-lg btn-r btn-success btn-w-shadow text-capitalize">Read More <fa :icon="fas.faArrowRight"/></a>
                             </div>
+                        </article> -->
+                        
+                        <article
+                            v-for="(item,index) in searchList"
+                            :key="index">
+                            <h2 class="blog-post__title" v-html="item.title"></h2>
+                            <div v-html="item.content"></div>
                         </article>
 
-                          <div class="overflow-auto">
+                        <div class="overflow-auto">
                             <pagination
                             ></pagination>
                         </div>
@@ -44,7 +51,7 @@
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import axios from 'axios'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Search from '~/components/Search'
 import Pagination from '~/components/Pagination'
 
@@ -64,11 +71,11 @@ export default {
     },
     components: {
         Search,
-        Pagination, 
+        Pagination,
     },
     data() {
         return {
-            searchFor: 'something',
+            searchFor: '',
             categorySelect: 'default',
             text: '',
             perPage: 3,
@@ -76,7 +83,16 @@ export default {
             items: new Array(20),
         }
     },
+    watch: {
+        async $route(r) {
+            this.searchFor = r.query.s || '';
+            await this.veiwSearchList(this.searchFor);
+        }
+    },
     computed: {
+        ...mapGetters({
+            searchList: 'getSearchList',
+        }),
         fas () {
             return fas
         },
@@ -87,10 +103,14 @@ export default {
             return this.items.length
         }
     },
-    created(){
-        this.searchFor = this.$route.query.s;
+    async created(){
+        this.searchFor = this.$route.query.s || '';
+        await this.veiwSearchList(this.searchFor);
     },
     methods: {
+        ...mapActions({
+            veiwSearchList: 'getSearchList',
+        }),
         toSearch() {
             this.searchFor = this.text;
             this.$router.push({name: 'search', query: {s: this.text}})

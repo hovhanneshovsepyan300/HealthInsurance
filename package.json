@@ -28,6 +28,7 @@
     "bootstrap-vue": "^2.0.0",
     "nuxt": "^2.0.0",
     "nuxt-fontawesome": "^0.4.0",
+    "vee-validate": "^3.2.0",
     "vue-autosuggest": "^2.0.4",
     "vue-bootstrap-typeahead": "^0.2.6",
     "vue-plain-pagination": "^0.3.0"

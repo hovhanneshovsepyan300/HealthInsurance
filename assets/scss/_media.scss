@@ -12,9 +12,12 @@
   
   @media (max-width: 991px) {
     .navbar {
-      a.navbar-brand {
-        padding-top: 15px;
-        padding-bottom: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      .navbar-brand {
+        padding-top: 8px;
+        padding-bottom: 8px;
       }
       .navbar-toggler {
         border-color: transparent;
@@ -137,7 +140,12 @@
                 .req-call-link {
                 }
                 .link-w-icon {
-                  padding: 8px 0;
+                  padding-top: 8px;
+                  padding-bottom: 8px;
+
+                  .svg-inline--fa {
+                    top: 12px;
+                  }
                 }
               }
             }

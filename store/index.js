@@ -3,16 +3,13 @@ import axios from 'axios'
 export const state = () => ({
     windowWidth: 0,
     zipcodeList: [],
+    searchList: [],
 })
 
 export const getters = {
-    getWindowWidth(state) {
-        return state.windowWidth;
-    },
-
-    getZipcodeList(state) {
-        return state.zipcodeList;
-    }
+    getWindowWidth: state => state.windowWidth,
+    getZipcodeList: state => state.zipcodeList,
+    getSearchList: state => state.searchList,
 }
   
 export const mutations = {
@@ -22,6 +19,10 @@ export const mutations = {
 
     SET_ZIPCODE_LIST(state, data) {
         state.zipcodeList = data;
+    },
+
+    SET_SEARCH_LIST(state, data) {
+        state.searchList = data;
     }
 }
 
@@ -41,6 +42,23 @@ export const actions = {
             commit('SET_ZIPCODE_LIST', data)
         } catch (e) {
             return { zipcodeList: [] }
+        }
+    },
+
+    async getSearchList({commit}, search) {
+        try {
+            let { data } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/posts?search=${search}`);
+
+            data = data.map(item => {
+                return ({
+                    title: item.title.rendered,
+                    content: item.content.rendered,
+                })
+            })
+
+            commit('SET_SEARCH_LIST', data);
+        } catch (e) {
+
         }
     }
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="light" variant="white">
-    
-    <b-navbar-brand>
+    <b-container>
+          <b-navbar-brand>
       <nuxt-link :to="{ path: '/'}">
         <img src="~/assets/img/logo.svg"  width="200" height="46" class="d-inline-block align-top" alt="Logo">
       </nuxt-link>
@@ -11,7 +11,7 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-auto mr-auto">
+        <b-navbar-nav class="ml-auto">
             <b-nav-item href="#">Compare Policies</b-nav-item>
             <b-nav-item-dropdown text="Health Funds" class="f-w-open" no-caret>
                 <b-dropdown-text>
@@ -147,12 +147,15 @@
 
             <b-nav-form class="nav-search">
               <b-button 
-                :variant="isSearchActive ? 'success' : ''" class="text-sm" 
+                :variant="isSearchActive ? 'success' : 'light'" class="text-sm" 
                 @click="toSearch">
                   <fa :icon="fas.faSearch"/>
               </b-button>
               <b-form-input v-model="text" 
                 :class="{'active': isSearchActive}" 
+                ref="search"
+                @focusout="focusOut"
+                @keydown="handleInput"
                 placeholder="Enter keyword..." ></b-form-input>
             </b-nav-form>
 
@@ -164,6 +167,7 @@
             </b-nav-item>
         </b-navbar-nav>
     </b-collapse>
+    </b-container>
   </b-navbar>
   </div>
 </template>
@@ -184,22 +188,45 @@ export default {
   data:() => {
     return {
       isSearchActive: false,    
+      isSearch: false,
       text: '',
     }
   },
   methods: {
+    handleInput(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        this.$refs.search.blur()
+        this.$router.push({name: 'search', query: {s: this.text}});
+        this.text = '';
+      }
+    },
+    focusInput() {
+      this.$refs.search.focus();
+    },
+    focusOut() {
+      setTimeout(() => {
+        this.closeInput();
+      }, 300)
+    },
     toSearch() {
       if(!this.isSearchActive) {
-        this.isSearchActive = !this.isSearchActive;
+        this.openInput();
+        this.focusInput();
         return
       }
 
-      this.isSearchActive = !this.isSearchActive;
       this.$router.push({name: 'search', query: {s: this.text}});
       this.text = '';
     },
     toHome() {
       this.$router.push({name: '/'});
+    },
+    closeInput() {
+      this.isSearchActive = false;
+    },
+    openInput() {
+      this.isSearchActive = true;
     }
   }
 }

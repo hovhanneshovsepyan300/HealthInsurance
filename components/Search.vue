@@ -3,9 +3,11 @@
         <b-form class="search-box">
             <h4 class="text-white text-uppercase mt-0">Search</h4>
             <b-input-group>
-                <b-form-input v-model="text" placeholder="Enter keyword..."></b-form-input>
+                <b-form-input 
+                    v-model="text"
+                    placeholder="Enter keyword..."></b-form-input>
                 <b-input-group-append>
-                    <b-button variant="success" class="text-sm" @click="toSearch">
+                    <b-button variant="success" class="text-sm" @click="() => toSearch()">
                         <fa :icon="fas.faSearch"/>
                     </b-button>
                 </b-input-group-append>
@@ -14,7 +16,7 @@
 
         <b-form class="compare-s-box">
             <h4 class="text-white mt-0">Compare health insurance quotes.</h4>
-            <b-input-group>
+            <b-input-group :class="{'hasError' : isCategoryRequred}">
                 <i class="fa-icon text-sm">
                     <fa :icon="fas.faUser"/>
                 </i>
@@ -35,6 +37,7 @@
                     v-model="query"
                     :data="zipcodeList"
                     placeholder="Enter Suburb or Postcode"
+                    :class="{'hasError' : isSearchRequred}"
                     class="typeahead">
                 
                     <template v-slot:prepend>
@@ -43,7 +46,10 @@
                     
                 </vue-bootstrap-typeahead>     
             <b-input-group>
-                <b-button variant="success" class="btn-default btn-block btn-r text-capitalize">Start Search</b-button>
+                <b-button 
+                    variant="success" 
+                    class="btn-default btn-block btn-r text-capitalize"
+                    @click="startSearch">Start Search</b-button>
             </b-input-group>
             <div class="compare-phone text-center">
                 <span class="d-block text-sm text-white">Prefer to talk? Call us at:</span>
@@ -93,15 +99,15 @@ import axios from 'axios'
 
 export default {
     props: ['zipcodeList'],
-    components: {
-    },
     data() {
         return {
             categorySelect: 'default',
             text: '',
             zipcode: null,
             query: '',
-            placeholder: 'Enter Suburb or Postcode'
+            placeholder: 'Enter Suburb or Postcode',
+            isSearchRequred: false,
+            isCategoryRequred: false,
         }
     },
     computed: {
@@ -120,6 +126,15 @@ export default {
             this.$emit("onSearch", this.text);
             this.$router.push({name: 'search', query: {s: this.text}})
         },
+        startSearch() {            
+            if(!this.query || !this.categorySelect) { 
+                this.isSearchRequred = true;
+                this.isCategoryRequred = true;
+                return
+            }
+            this.isSearchRequred = false;
+            this.isCategoryRequred = false;
+        }
     }
 }
 </script>

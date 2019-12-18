@@ -43,7 +43,7 @@ export default {
   plugins: [
     '~/plugins/vue-inject.js',
     '~/plugins/autocomplete.js',
-    { src: '~/plugins/resize', ssr: false }
+    { src: '~/plugins/resize', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -84,6 +84,6 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+    },
   }
 }

@@ -10,7 +10,7 @@
                   <i class="fa-icon">
                     <fa :icon="fas.faChevronDown"/>
                   </i>
-                  <b-form-select v-model="compareSelect" class="form-control">
+                  <b-form-select v-model="compareSelect" class="form-control" :class="{'hasError' : isCategoryRequred}">
                     <option value="a">Enter your Life Stage</option>
                     <option value="b">Single</option>
                     <option value="c">Couple</option>
@@ -30,12 +30,13 @@
                     :data="zipcodeList"
                     placeholder="Enter Suburb or Postcode"
                     class="typeahead"
+                    :class="{'hasError' : isSearchRequred}"
                     @focus="isFocused = false"
                     ref="typeahead">
                   </vue-bootstrap-typeahead>
                 </b-col>
                 <b-col md="4" class="p-0">
-                  <b-button type="submit" variant="success">Compare Quotes <fa :icon="fas.faLongArrowAltRight"/></b-button>
+                  <b-button type="submit" variant="success" @click="startSearch">Compare Quotes <fa :icon="fas.faLongArrowAltRight"/></b-button>
                 </b-col>
               </b-form>
             </b-col>
@@ -296,6 +297,8 @@ export default {
       text: '',
       slide: 1,
       query: null,
+      isSearchRequred: false,
+      isCategoryRequred: false,
     }
   },
   computed: {
@@ -313,22 +316,32 @@ export default {
     },
   },
   methods: {
-   carouselImg(slide) {
-    return slide.image.url;
-   },
-   getSectionTitle(index) {
-     let title = this.sections[index].section_title || this.sections[index].title;
-     return this.$removeHtmltags(title);
-   },
-   getContent(index) {
-     return this.$getInnerHtml(this.sections[index].content)
-   },
-   getSubheading(index) {
-     return this.sections[index].subheading;
-   },
-   benefitContent(content) {
-     return this.$removeHtmltags(content);
-   }
+    carouselImg(slide) {
+      return slide.image.url;
+    },
+    getSectionTitle(index) {
+      let title = this.sections[index].section_title || this.sections[index].title;
+      return this.$removeHtmltags(title);
+    },
+    getContent(index) {
+      return this.$getInnerHtml(this.sections[index].content)
+    },
+    getSubheading(index) {
+      return this.sections[index].subheading;
+    },
+    benefitContent(content) {
+      return this.$removeHtmltags(content);
+    },
+    startSearch(e) {  
+      e.preventDefault();          
+      if(!this.query || !this.compareSelect) { 
+          this.isSearchRequred = true;
+          this.isCategoryRequred = true;
+          return
+      }
+      this.isSearchRequred = false;
+      this.isCategoryRequred = false;
+    }
   }
 }
 </script>
