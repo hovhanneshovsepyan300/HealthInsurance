@@ -69,7 +69,7 @@ export const actions = {
     async getSearchList({commit, state}, { search, page}) {
         try {
             const params = {
-                s: search,
+                search: search,
                 per_page: state.perPage,
                 page,
             };
