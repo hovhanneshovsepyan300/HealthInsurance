@@ -60,7 +60,7 @@
 <script>
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import axios from 'axios'
+import axios from '~/plugins/axios';
 import { mapGetters } from 'vuex'
 import Search from '~/components/Search'
 
@@ -73,7 +73,7 @@ export default {
                 return item.join(' ');
             })
 
-            let { data: content } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=about-us&_embed`);
+            let { data: content } = await axios.get(`pages/?slug=about-us&_embed`);
 
             return { content: content[0].content.rendered , zipcodeList}
         } catch (e) {

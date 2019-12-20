@@ -1,3 +1,4 @@
+
 const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   router: {
     base: '/HealthInsurance/'
@@ -6,6 +7,9 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
 
 export default {
   ...routerBase,
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://healthinsurancecomparison.com.au/wp-json/wp/v2/'
+  },
   mode: 'spa',
   /*
   ** Headers of the page

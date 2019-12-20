@@ -5,6 +5,7 @@
             <b-input-group>
                 <b-form-input 
                     v-model="text"
+                    @keydown="handleSearchInput"
                     placeholder="Enter keyword..."></b-form-input>
                 <b-input-group-append>
                     <b-button variant="success" class="text-sm" @click="() => toSearch()">
@@ -134,6 +135,12 @@ export default {
             }
             this.isSearchRequred = false;
             this.isCategoryRequred = false;
+        },
+        handleSearchInput(e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                this.toSearch();
+            }
         }
     }
 }

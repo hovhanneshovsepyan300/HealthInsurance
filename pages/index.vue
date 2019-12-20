@@ -36,7 +36,10 @@
                   </vue-bootstrap-typeahead>
                 </b-col>
                 <b-col md="4" class="p-0">
-                  <b-button type="submit" variant="success" @click="startSearch">Compare Quotes <fa :icon="fas.faLongArrowAltRight"/></b-button>
+                  <b-button 
+                    type="submit" 
+                    variant="success" 
+                    @click="startSearch">Compare Quotes <fa :icon="fas.faLongArrowAltRight"/></b-button>
                 </b-col>
               </b-form>
             </b-col>
@@ -260,7 +263,7 @@
 <script>
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import axios from 'axios'
+import axios from '~/plugins/axios'
 import { mapGetters, mapActions } from 'vuex'
 
 import Service from '~/components/Service';
@@ -276,7 +279,7 @@ export default {
         return item.join(' ');
       })
 
-      let { data: sections } = await axios.get(`https://healthinsurancecomparison.com.au/wp-json/wp/v2/pages/?slug=home-old&_embed`);
+      let { data: sections } = await axios.get(`pages/?slug=home-old&_embed`);
 
       
       sections = sections[0].acf.homepage_sections;

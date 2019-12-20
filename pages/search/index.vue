@@ -12,29 +12,30 @@
                             <div class="divide"></div>
                         </div>
 
-                        <!-- <article class="blog-post">
-                            <h2 class="blog-post__title">This ten-minute phone call could save you hundreds</h2>
-                            <div class="blog-post__date">
-                                <i class="icon-fa text-success text-sm"><fa :icon="fas.faCalendarAlt"/></i>
-                                <span class="main-blog-post-date">Friday, October 25, 2019</span>
-                            </div>
-                            <img class="img img-fluid mb-5" src="~/assets/img/adult-cutting-daylight-facial-expression.jpg" alt="blog post image">
-                            <p class="main-blog-excerpt mb-4">Rude call centre staff. Irritatingly chipper elevator music. You’ve been put on hold three times in the past half hour,......</p>
-                            <div class="text-right">
-                                <a href="" class="btn btn-default btn-lg btn-r btn-success btn-w-shadow text-capitalize">Read More <fa :icon="fas.faArrowRight"/></a>
-                            </div>
-                        </article> -->
-                        
-                        <article
+                        <article class="blog-post"
                             v-for="(item,index) in searchList"
                             :key="index">
-                            <h2 class="blog-post__title" v-html="item.title"></h2>
-                            <div v-html="item.content"></div>
+                            <h2 class="blog-post__title" v-html="item.title" />
+                            <div class="blog-post__date">
+                                <i class="icon-fa text-success text-sm"><fa :icon="fas.faCalendarAlt" /></i>
+                                <span class="main-blog-post-date">{{item.date}}</span>
+                            </div>
+                            <img class="img img-fluid mb-5" 
+                                v-if="item.embedded['wp:featuredmedia']"
+                                :src="item.embedded['wp:featuredmedia']['0'].source_url" alt="blog post image">
+                            <img v-else class="img img-fluid mb-5" src="~/assets/img/adult-cutting-daylight-facial-expression.jpg" alt="blog post image">
+                            <p class="main-blog-excerpt mb-4" v-html="item.excerpt" />
+                            <div class="text-right">
+                                <a :href="item.link" class="btn btn-default btn-lg btn-r btn-success btn-w-shadow text-capitalize">Read More <fa :icon="fas.faArrowRight"/></a>
+                            </div>
                         </article>
 
                         <div class="overflow-auto">
                             <pagination
-                            ></pagination>
+                                v-if="searchList"
+                                @changePage="changePage"
+                                :currentPage="currentPage"
+                                :totalPages="totalPages"/>
                         </div>
                     </b-col>
 
@@ -58,9 +59,9 @@ import Pagination from '~/components/Pagination'
 export default {
     async asyncData ({ params }) {
         try {
-        let { data: zipcodeList } = await axios.get(`https://cdn.alternativemedia.com.au/geodata.json`);
+            let { data: zipcodeList } = await axios.get(`https://cdn.alternativemedia.com.au/geodata.json`);
 
-        zipcodeList = zipcodeList.map(item => {
+            zipcodeList = zipcodeList.map(item => {
             return item.join(' ');
         });
 
@@ -80,18 +81,19 @@ export default {
             text: '',
             perPage: 3,
             currentPage: 1,
-            items: new Array(20),
+            perPage: 2,
         }
     },
     watch: {
         async $route(r) {
             this.searchFor = r.query.s || '';
-            await this.veiwSearchList(this.searchFor);
+            await this.veiwSearchList({ search: this.searchFor, page:  this.currentPage});
         }
     },
     computed: {
         ...mapGetters({
             searchList: 'getSearchList',
+            totalPages: 'totalPages',
         }),
         fas () {
             return fas
@@ -99,17 +101,19 @@ export default {
         fab () {
             return fab
         },
-        rows() {
-            return this.items.length
-        }
+        // hasThumbnail: function(post) {
+        //     if (post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].media_details && post._embedded['wp:featuredmedia'][0].media_details.sizes){
+        //     return  post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail;}
+        // },
     },
     async created(){
         this.searchFor = this.$route.query.s || '';
-        await this.veiwSearchList(this.searchFor);
+        await this.veiwSearchList({ search: this.searchFor, page:  this.currentPage});
     },
     methods: {
         ...mapActions({
             veiwSearchList: 'getSearchList',
+            getNumPosts: 'getNumPosts',
         }),
         toSearch() {
             this.searchFor = this.text;
@@ -117,11 +121,11 @@ export default {
         },
         onSearch(v) {
             this.searchFor = v;
+        },
+        changePage(v) {
+            this.currentPage = v;
+            this.veiwSearchList({ search: this.searchFor, page:  this.currentPage});
         }
     }
 }
 </script>
-
-<style lang="scss">
-
-</style>

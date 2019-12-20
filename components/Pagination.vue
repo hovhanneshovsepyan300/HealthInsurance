@@ -1,7 +1,8 @@
 <template>
-    <v-pagination 
-        v-model="currentPage"
-        :page-count="totalPages"
+    <v-pagination
+        :value="page"
+        @input="handlePageChange"
+        :page-count="pageCount"
         :classes="bootstrapPaginationClasses"
         :labels="paginationAnchorTexts"
         >
@@ -13,10 +14,10 @@ import vPagination from 'vue-plain-pagination'
 
 export default {
   components: { vPagination },
+  props: ['currentPage', 'totalPages'],
   data() {
     return {
-      currentPage: 1,
-      totalPages: 22,
+      page: 1,
       bootstrapPaginationClasses: {
         ul: 'pagination',
         li: 'page-item',
@@ -30,6 +31,17 @@ export default {
         next: '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" class="text-success svg-inline--fa fa-caret-right fa-w-6"><path fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z" class=""></path></svg>',
         last: false
       }
+    }
+  },
+  computed: {
+    pageCount() {
+      return this.totalPages == 0 ? 1 : Math.ceil(this.totalPages);
+    },
+  },
+  methods: {
+    handlePageChange(v) {
+      this.page = v;
+      this.$emit('changePage', v);
     }
   }
 }
